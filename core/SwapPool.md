@@ -26,7 +26,7 @@ There are two workflows to increase liquidity:
 
 - DIP20-WICP/DIP20-XTC/EXT: Token.approve -> SwapPool.depositFrom -> SwapPool.increaseLiquidity
 
-```json
+```bash
 {
     tokenId : Nat32;
     cId : Text;
@@ -63,7 +63,7 @@ Workflow to decrease liquidity:
 
 - SwapPool.decreaseLiquidity -> SwapPool.withdraw
 
-```json
+```bash
 {
     liquidity : Nat;
     feeGrowthInside0LastX128 : Nat;

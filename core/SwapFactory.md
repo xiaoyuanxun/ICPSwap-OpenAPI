@@ -1,6 +1,6 @@
 # SwapFactory
 
-SwapFactory is a canister to create farm and hold pool list mainly.
+SwapFactory is a canister to create SwapPool and hold pool list mainly.
 
 ## Methods
 
