@@ -93,34 +93,34 @@ There are two workflows to swap:
 
 `deposit`: deposit token from current user's subaccount in pool to the current pool, for ICP/ICRC1/ICRC2 standards
 
-input parameters:
+input:
 - token: canister id of the token
 - amount: token amount to be deposited
 
-output parameters: 
+output: 
 - deposited token amount
 
 `depositFrom`: deposit token from current user to pool, for DIP20/DIP20-WICP/DIP20-XTC/EXT standards
 
-input parameters:
+input:
 - token: canister id of the token
 - amount: token amount to be deposited
 
-output parameters: 
+output: 
 - deposited token amount
 
 `withdraw`: withdraw token from pool to current user
 
-input parameters:
+input:
 - token: canister id of the token
 - amount: token amount to be deposited
 
-output parameters: 
+output: 
 - withdrawed token amount
 
 `mint`: mint a position
 
-input parameters:
+input:
 - token0: canister id of token0
 - token1: canister id of token1
 - fee: rate of transaction fee
@@ -132,12 +132,12 @@ input parameters:
 - amount1Min: minimum amount of token1 expected to be minted, not currently used
 - operator: principal of current user
 
-output parameters: 
+output: 
 - position id
 
 `increaseLiquidity`: increase liquidity into a position
 
-input parameters:
+input:
 - positionId: id of the position
 - amount0Desired: amount of token0 to be increased
 - amount1Desired: amount of token1 to be increased
@@ -145,67 +145,67 @@ input parameters:
 - amount1Min: minimum amount of token1 expected to be increased, not currently used
 - operator: principal of current user
 
-output parameters: 
+output: 
 - position id
 
 `decreaseLiquidity`: decrease liquidity from a position
 
-input parameters:
+input:
 - positionId: id of the position
 - liquidity: amount of liquidity to be decreased
 - amount0Min: minimum amount of token0 expected to be collected, not currently used
 - amount1Min: minimum amount of token1 expected to be collected, not currently used
 - operator: principal of current user
 
-output parameters: 
+output: 
 - amount0: amount of collected token0
 - amount1: amount of collected token1
 
 `claim`: claim incomes of the position
 
-input parameters:
+input:
 - positionId: id of the position
 - operator: principal of current user
 
-output parameters: 
+output: 
 - amount0: income amount of token0
 - amount1: income amount of token1
 
 `swap`: swap token0 to token1 or swap token1 to token0
 
-input parameters:
+input:
 - operator: principal of current user
 - zeroForOne: if token0 swap to token1, true or false
 - amountIn: input token amount
 - amountOutMinimum: minimum amount of token expected to be swapped
 
-output parameters: 
+output: 
 - swap result
 
 `quote`: precomputation of swap
 
-input parameters:
+input:
 - operator: principal of current user
 - zeroForOne: if token0 swap to token1, true or false
 - amountIn: input token amount
 - amountOutMinimum: minimum amount of token expected to be swapped
 
-output parameters: 
+output: 
 - precomputation result
 
 `allTokenBalance`: get all unused balances and their holders
 
-output parameters: 
+output: 
 - user principal
 - balance0: balance of token0
 - balance1: balance of token1
 
 `batchRefreshIncome`: refresh the benefits of a group of positions by ids
 
-input parameters:
+input:
 - a list of position ids
 
-output parameters: 
+output: 
 - totalTokensOwed0: total token0 benefit of the position id list
 - totalTokensOwed1: total token1 benefit of the position id list
 - tokenIncome: detailed benefit information of each position id. 
@@ -215,20 +215,20 @@ output parameters:
 
 `getAccessControlState`: get principals group by role
 
-output parameters:
+output:
 - owners: principals with 'owner' role
 - admins: principals with 'admins' role
 - clients: principals with 'client' role
 
 `getAvailabilityState`: get availability state of SwapFactory
 
-output parameters:
+output:
 - available: state of availability
 - whiteList: a list of principals that can access the methods when the availability state is 'false'
 
 `getConfigCids`: get some dependent canister ids
 
-output parameters: 
+output: 
 - nftCid: canister id of SwapNFT
 - infoCid: canister id of data collector
 - ticketCid: canister id of ticket
@@ -236,17 +236,17 @@ output parameters:
 
 `getCycleInfo`: get cycle information of current pool
 
-output parameters: 
+output: 
 - balance: balance number of cycles
 - available: available number of cycles
 
 `getPosition`: get position information by args
 
-input parameters:
+input:
 - tickLower: lower tick
 - tickUpper: upper tick
 
-output parameters: 
+output: 
 - liquidity: liquidity amount
 - feeGrowthInside0LastX128: token0 fee amount growth inside
 - feeGrowthInside1LastX128: token1 fee amount growth inside
@@ -255,11 +255,11 @@ output parameters:
 
 `getPositions`: get position list by page
 
-input parameters:
+input:
 - offset number
 - limit number
 
-output parameters: 
+output: 
 - totalElements: total number of positions
 - content: list of position info
 - offset: offset number
@@ -267,11 +267,11 @@ output parameters:
 
 `getTickInfos`: get tick list by page
 
-input parameters:
+input:
 - offset number
 - limit number
 
-output parameters: 
+output: 
 - totalElements: total number of positions
 - content: list of tick info
 - offset: offset number
@@ -279,7 +279,7 @@ output parameters:
 
 `getTokenAmountState`: get token amounts
 
-output parameters: 
+output: 
 - token0Amount: token0 amount in the pool
 - token1Amount: token1 amount in the pool
 - swapFee0Repurchase: repurchase fee of token0
@@ -287,22 +287,22 @@ output parameters:
 
 `getTokenBalance`: get token balances of the pool
 
-output parameters: 
+output: 
 - token0: token0 amount in the pool
 - token1: token1 amount in the pool
 
 `getTokenMeta`: get token meta of the pool
 
-output parameters: 
+output: 
 - token0: meta of token0
 - token1: meta of token1
 
 `getUserPosition`: get user position by id
 
-input parameters:
+input:
 - position id
 
-output parameters: 
+output: 
 - tickLower: tick lower
 - tickUpper: tick upper
 - liquidity: liquidity amount
@@ -313,11 +313,11 @@ output parameters:
 
 `getUserPositionWithTokenAmount`: get user position by id (compute liquidity amount to token amount)
 
-input parameters:
+input:
 - offset number
 - limit number
 
-output parameters: 
+output: 
 - totalElements: total number of positions
 - content: list of tick info
 - offset: offset number
@@ -325,11 +325,11 @@ output parameters:
 
 `getUserPositions`: get user position list by page
 
-input parameters:
+input:
 - offset number
 - limit number
 
-output parameters: 
+output: 
 - totalElements: total number of positions
 - content: list of user position info
 - offset: offset number
@@ -337,16 +337,16 @@ output parameters:
 
 `getUserUnusedBalance`: get current user's unused balance
 
-input parameters:
+input:
 - principal of user
 
-output parameters: 
+output: 
 - balance0: unused balance of token0
 - balance1: unused balance of token1
 
 `metadata`: metadata of the pool
 
-output parameters: 
+output: 
 - key: pool key
 - token0: { address : Text; standard : Text; }
 - token1: { address : Text; standard : Text; }
@@ -360,9 +360,9 @@ output parameters:
 
 `refreshIncome`: refresh income by position id
 
-input parameters:
+input:
 - position id
 
-output parameters: 
+output: 
 - tokensOwed0: income amount of token0
 - tokensOwed1: income amount of token1

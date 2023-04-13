@@ -6,7 +6,7 @@ SwapFactory is a canister to create SwapPool and hold pool list mainly.
 
 `getPools`: get all pools
 
-output parameters:
+output:
 - key: token0.address_token1.address_fee
 - token0: { address : Text; standard : Text; }
 - token1: { address : Text; standard : Text; }
@@ -16,27 +16,27 @@ output parameters:
 
 `getPool`: get pool by parameters
 
-input parameters:
+input:
 - token0: { address : Text; standard : Text; }
 - token1: { address : Text; standard : Text; }
 - fee: rate of transaction fee (500: 0.05%, 3000: 0.3%, 10000: 1%)
 
-output parameters: 
+output: 
 - same as 'getPools'
 
 `getRemovedPools`: get all removed pools
 
-output parameters:
+output:
 - same as 'getPools'
 
 `getAvailabilityState`: get availability state of SwapFactory
 
-output parameters:
+output:
 - available: state of availability
 - whiteList: a list of principals that can access the methods when the availability state is 'false'
 
 `getAccessControlState`: get principals group by role
 
-output parameters:
+output:
 - owners: principals with 'owner' role
 - clients: principals with 'client' role

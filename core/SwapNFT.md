@@ -8,12 +8,12 @@ Methods in EXT standard will not be listed.
 
 `findTokenList`: get token list of current user
 
-input parameters:
+input:
 - User = { #address : Text; #principal : Principal; }
 - offset number
 - limit number
 
-output parameters: 
+output: 
 - totalElements: total number of NFTs
 - content: list of user NFT info
 - offset: offset number
@@ -21,12 +21,12 @@ output parameters:
 
 `findTokenListByPool`: get token list of current pool
 
-input parameters:
+input:
 - canister id of pool
 - offset number
 - limit number
 
-output parameters: 
+output: 
 - totalElements: total number of NFTs
 - content: list of NFT info
 - offset: offset number
