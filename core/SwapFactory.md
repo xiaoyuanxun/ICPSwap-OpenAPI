@@ -19,7 +19,7 @@ output parameters:
 input parameters:
 - token0: { address : Text; standard : Text; }
 - token1: { address : Text; standard : Text; }
-- fee: rate of transaction fee
+- fee: rate of transaction fee (500: 0.05%, 3000: 0.3%, 10000: 1%)
 
 output parameters: 
 - same as 'getPools'

@@ -1,6 +1,6 @@
 # SwapNFT
 
-Based on EXT standard and added some business related query interfaces.
+SwapNFT is a canister to hold non-fungible tokens which reflect the positions in SwapPool. Based on the EXT standard and added some business related query interfaces.
 
 ## Methods
 

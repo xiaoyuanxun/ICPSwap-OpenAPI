@@ -5,15 +5,89 @@ SwapPool is the most important canister in the whole business process. Each Swap
 ## Operations
 
 ### Mint
-...
+Before minting a position, we should check if the SwapPool of the specific token pair exists by using 'SwapFactory.getPool'. If there is no SwapPool, use 'SwapFactory.createPool' to create one.
+
+After creating a SwapPool, there are two workflows to mint a position for different standards of tokens:
+
+- ICP/ICRC1/ICRC2: Token.approve -> Token.transfer -> SwapPool.deposit -> [ Transfer & Diposit workflow of the other token ] -> SwapPool.mint
+
+- DIP20-WICP/DIP20-XTC/EXT: Token.approve -> SwapPool.depositFrom -> [ Transfer & Diposit workflow of the other token ] -> SwapPool.mint
+
+Finally , 'SwapPool.mint' will return an id which signs an user's position. 
+
+Sometimes the incoming tokens may not be fully used up, the rest of the tokens will be put into the unused balance list.
+
 ### Increase liquidity
-...
+By using 'SwapNFT.findTokenList' method, we can get a list of non-fungible tokens. Based on the data structure below, we can connect NFT and liquidity position. 'tokenId' is the id of NFT, 'pool' is the SwapPool which should be called, and the 'positionId' is the id of the position in the SwapPool.
+
+There are two workflows to increase liquidity:
+
+- ICP/ICRC1/ICRC2: Token.approve -> Token.transfer -> SwapPool.deposit -> SwapPool.increaseLiquidity
+
+- DIP20-WICP/DIP20-XTC/EXT: Token.approve -> SwapPool.depositFrom -> SwapPool.increaseLiquidity
+
+```json
+{
+    tokenId : Nat32;
+    cId : Text;
+    nftType : Text;
+    fileType : Text;
+    artistName : Text;
+    introduction : Text;
+    royalties : Nat;
+    name : Text;
+    link : Text;
+    filePath : Text;
+    minter : Text;
+    mintTime : Int;
+    owner : Text;
+    attributes : [
+        { k = "pool"; v = Principal.toText(Principal.fromActor(this)); },
+        { k = "positionId"; v = Nat.toText(positionId) },
+        { k = "token0"; v = token0.address },
+        { k = "token0Standard"; v = token0.standard },
+        { k = "token1"; v = token1.address },
+        { k = "token1Standard"; v = token1.standard },
+        { k = "fee"; v = Nat.toText(fee) },
+        { k = "tickLower"; v = Int.toText(tickLower) },
+        { k = "tickUpper"; v = Int.toText(tickUpper) },
+    ];
+    metadata : ?Blob;
+}
+```
+
 ### Decrease liquidity
-...
+By using 'SwapNFT.findTokenList' to get a position id, and use 'SwapPool.getUserPosition' to get the position details below, we can decrease a certain amount of liquidity which will between 0 and the returned 'liquidity' number.
+
+Workflow to decrease liquidity:
+
+- SwapPool.decreaseLiquidity -> SwapPool.withdraw
+
+```json
+{
+    liquidity : Nat;
+    feeGrowthInside0LastX128 : Nat;
+    feeGrowthInside1LastX128 : Nat;
+    tokensOwed0 : Nat;
+    tokensOwed1 : Nat;
+}
+```
+
 ### Claim
-...
+Get the id of the position, and then input the position id into the 'SwapPool.claim' to claim the income.
+
+Work flow to claim:
+
+- SwapPool.claim -> SwapPool.withdraw
+
 ### Swap
-...
+By using 'SwapFactory.getPool' to get the canister id of the SwapPool which will be called further, and then execute the workflow below.
+
+There are two workflows to swap:
+
+- ICP/ICRC1/ICRC2: Token.approve -> Token.transfer -> SwapPool.deposit -> SwapPool.swap -> SwapPool.withdraw
+
+- DIP20-WICP/DIP20-XTC/EXT: Token.approve -> SwapPool.depositFrom -> SwapPool.swap -> SwapPool.withdraw
 
 ## Methods
 
@@ -46,12 +120,6 @@ output parameters:
 
 `mint`: mint a position
 
-Mint work flow:
-
-ICP/ICRC1/ICRC2: transfer token -> deposit -> mint
-
-DIP20-WICP/DIP20-XTC/EXT: depositFrom -> mint
-
 input parameters:
 - token0: canister id of token0
 - token1: canister id of token1
@@ -69,12 +137,6 @@ output parameters:
 
 `increaseLiquidity`: increase liquidity into a position
 
-Increase work flow:
-
-ICP/ICRC1/ICRC2: transfer token -> deposit -> increaseLiquidity
-
-DIP20-WICP/DIP20-XTC/EXT: depositFrom -> increaseLiquidity
-
 input parameters:
 - positionId: id of the position
 - amount0Desired: amount of token0 to be increased
@@ -87,12 +149,6 @@ output parameters:
 - position id
 
 `decreaseLiquidity`: decrease liquidity from a position
-
-Decrease work flow:
-
-ICP/ICRC1/ICRC2: decreaseLiquidity -> withdraw
-
-DIP20-WICP/DIP20-XTC/EXT: decreaseLiquidity -> withdraw
 
 input parameters:
 - positionId: id of the position
@@ -107,12 +163,6 @@ output parameters:
 
 `claim`: claim incomes of the position
 
-Claim work flow:
-
-ICP/ICRC1/ICRC2: claim -> withdraw
-
-DIP20-WICP/DIP20-XTC/EXT: claim -> withdraw
-
 input parameters:
 - positionId: id of the position
 - operator: principal of current user
@@ -122,12 +172,6 @@ output parameters:
 - amount1: income amount of token1
 
 `swap`: swap token0 to token1 or swap token1 to token0
-
-Swap work flow:
-
-ICP/ICRC1/ICRC2: transfer token -> deposit -> swap -> withdraw
-
-DIP20-WICP/DIP20-XTC/EXT: depositFrom -> swap -> withdraw
 
 input parameters:
 - operator: principal of current user
@@ -159,7 +203,7 @@ output parameters:
 `batchRefreshIncome`: refresh the benefits of a group of positions by ids
 
 input parameters:
-- a list of position id
+- a list of position ids
 
 output parameters: 
 - totalTokensOwed0: total token0 benefit of the position id list
