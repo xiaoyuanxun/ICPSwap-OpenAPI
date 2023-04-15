@@ -2,6 +2,10 @@
 
 SwapFactory is a canister to create SwapPool and hold pool list mainly.
 
+```bash
+canister: 4mmnk-kiaaa-aaaag-qbllq-cai
+```
+
 ## Methods
 
 `createPool`: create a SwapPool if necessary.

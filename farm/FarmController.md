@@ -1,6 +1,10 @@
 # FarmController
 FarmController is a canister to create farm, hold farm list and update farm status.
 
+```bash
+canister: c5jrt-yaaaa-aaaag-qb5ra-cai
+```
+
 ## Methods
 
 `create`: create a new farm with the specified parameters

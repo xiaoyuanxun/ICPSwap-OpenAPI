@@ -2,6 +2,10 @@
 
 SwapNFT is a canister to hold non-fungible tokens which reflect the positions in SwapPool. It is based on the EXT standard and added some business related query interfaces.
 
+```bash
+canister: 4lnl6-hqaaa-aaaag-qblla-cai
+```
+
 ## Methods
 
 Methods in EXT standard will not be listed.

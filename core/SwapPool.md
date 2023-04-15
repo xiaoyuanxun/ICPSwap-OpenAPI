@@ -9,9 +9,9 @@ Before minting a position, we should check if the SwapPool of the specific token
 
 After creating a SwapPool, there are two workflows to mint a position for different standards of tokens:
 
-- ICP/ICRC1/ICRC2: Token.approve -> Token.transfer -> SwapPool.deposit -> [ Transfer & Diposit workflow of the other token ] -> SwapPool.mint
+- ICP/ICRC1: Token.transfer -> SwapPool.deposit -> [ Transfer & Diposit workflow of the other token ] -> SwapPool.mint
 
-- DIP20-WICP/DIP20-XTC/EXT: Token.approve -> SwapPool.depositFrom -> [ Transfer & Diposit workflow of the other token ] -> SwapPool.mint
+- ICRC2/DIP20: Token.approve (approve to the particular SwapPool) -> SwapPool.depositFrom -> [ Transfer & Diposit workflow of the other token ] -> SwapPool.mint
 
 Finally , 'SwapPool.mint' will return an id which signs an user's position. 
 
@@ -22,9 +22,9 @@ By using 'SwapNFT.findTokenList' method, we can get a list of non-fungible token
 
 There are two workflows to increase liquidity:
 
-- ICP/ICRC1/ICRC2: Token.approve -> Token.transfer -> SwapPool.deposit -> SwapPool.increaseLiquidity
+- ICP/ICRC1: Token.transfer -> SwapPool.deposit -> SwapPool.increaseLiquidity
 
-- DIP20-WICP/DIP20-XTC/EXT: Token.approve -> SwapPool.depositFrom -> SwapPool.increaseLiquidity
+- ICRC2/DIP20: Token.approve (approve to particular SwapPool) -> SwapPool.depositFrom -> SwapPool.increaseLiquidity
 
 ```bash
 {
@@ -85,13 +85,13 @@ By using 'SwapFactory.getPool' to get the canister id of the SwapPool which will
 
 There are two workflows to swap:
 
-- ICP/ICRC1/ICRC2: Token.approve -> Token.transfer -> SwapPool.deposit -> SwapPool.swap -> SwapPool.withdraw
+- ICP/ICRC1: Token.transfer -> SwapPool.deposit -> SwapPool.swap -> SwapPool.withdraw
 
-- DIP20-WICP/DIP20-XTC/EXT: Token.approve -> SwapPool.depositFrom -> SwapPool.swap -> SwapPool.withdraw
+- ICRC2/DIP20: Token.approve (approve to particular SwapPool) -> SwapPool.depositFrom -> SwapPool.swap -> SwapPool.withdraw
 
 ## Methods
 
-`deposit`: deposit token from current user's subaccount in pool to the current pool, for ICP/ICRC1/ICRC2 standards
+`deposit`: deposit token from current user's subaccount in pool to the current pool, for ICP/ICRC1 standards
 
 input:
 - token: canister id of the token
@@ -100,7 +100,7 @@ input:
 output: 
 - deposited token amount
 
-`depositFrom`: deposit token from current user to pool, for DIP20/DIP20-WICP/DIP20-XTC/EXT standards
+`depositFrom`: deposit token from current user to pool, for DIP20/ICRC2 standards
 
 input:
 - token: canister id of the token
@@ -182,7 +182,7 @@ input:
 output: 
 - swap result
 
-`quote`: precomputation of swap
+`quote`: precomputation of swap, can be used to get unit price by swap one
 
 input:
 - operator: principal of current user
