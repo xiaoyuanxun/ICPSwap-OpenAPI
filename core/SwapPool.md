@@ -9,7 +9,7 @@ Before minting a position, we should check if the SwapPool of the specific token
 
 After creating a SwapPool, there are two workflows to mint a position for different standards of tokens:
 
-- ICP/ICRC1: Token.transfer -> SwapPool.deposit -> [ Transfer & Diposit workflow of the other token ] -> SwapPool.mint
+- ICP/ICRC1: Token.transfer (to user's subaccount in SwapPool) -> SwapPool.deposit (from subaccount to SwapPool) -> [ Transfer & Diposit workflow of the other token ] -> SwapPool.mint
 
 - ICRC2/DIP20: Token.approve (approve to the particular SwapPool) -> SwapPool.depositFrom -> [ Transfer & Diposit workflow of the other token ] -> SwapPool.mint
 
@@ -22,7 +22,7 @@ By using 'SwapNFT.findTokenList' method, we can get a list of non-fungible token
 
 There are two workflows to increase liquidity:
 
-- ICP/ICRC1: Token.transfer -> SwapPool.deposit -> SwapPool.increaseLiquidity
+- ICP/ICRC1: Token.transfe (to user's subaccount in SwapPool)r -> SwapPool.deposit -> SwapPool.increaseLiquidity
 
 - ICRC2/DIP20: Token.approve (approve to particular SwapPool) -> SwapPool.depositFrom -> SwapPool.increaseLiquidity
 
@@ -85,7 +85,7 @@ By using 'SwapFactory.getPool' to get the canister id of the SwapPool which will
 
 There are two workflows to swap:
 
-- ICP/ICRC1: Token.transfer -> SwapPool.deposit -> SwapPool.swap -> SwapPool.withdraw
+- ICP/ICRC1: Token.transfer (to user's subaccount in SwapPool) -> SwapPool.deposit -> SwapPool.swap -> SwapPool.withdraw
 
 - ICRC2/DIP20: Token.approve (approve to particular SwapPool) -> SwapPool.depositFrom -> SwapPool.swap -> SwapPool.withdraw
 
